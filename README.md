@@ -11,7 +11,7 @@ Several options are allowed:
 * You can customize the label next to the checkbox
 * You can include the checkbos into its own fieldset, for accessibility compliance.
 
-The plugin will record the consent of the subscriber in a table in the database (#__fabrik_privacy). This records includes:
+The plugin will record the consent of the subscriber in a table in the database (#__fabrik_privacy). This record includes:
 * The date and time of the subscription
 * The list, form and row ID
 * The consent message (label of the checkbox)
@@ -19,11 +19,11 @@ The plugin will record the consent of the subscriber in a table in the database 
 * The subscriber ID (in Acymailing)
 * The IP address at the time of the consent (optional)
 
-##Installation
+## Installation
 * Download a .zip file of the plugin and install it as any Joomla! extension.
 * Once installed, go to the plugin manager, filter out on fabrik form plugins and enable the plugin
 * In your Fabrik form settings, add the plugin and configure it as appropriate
 
-You can see this plugin in action on [this page](https://www.betterweb.fr/services/migration) of our website.
+You can see this plugin in action on [this page](https://www.betterweb.fr/services/migration?utm_medium=referral&utm_source=github&utm_campaign=signature) of our website.
 
-Need help to comply to GDPR, please contact us : [https://www.betterweb.fr/services/applications-pour-joomla](https://www.betterweb.fr/services/applications-pour-joomla).
+Need help to comply to GDPR, please contact us : [https://www.betterweb.fr/services/applications-pour-joomla](https://www.betterweb.fr/services/applications-pour-joomla?utm_medium=referral&utm_source=github&utm_campaign=signature).
