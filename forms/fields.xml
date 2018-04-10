@@ -44,5 +44,16 @@
 			<field default="" description="PLG_FORM_ACYMAILING_LEGEND_CLASS_DESC" label="PLG_FORM_ACYMAILING_LEGEND_CLASS_LABEL" name="acymailing_legend_class" repeat="true" size="40" type="text"/>
 			
 		</fieldset>
+		
+		<fieldset name="plg-form-acymailing-options" label="PLG_FORM_ACYMAILING_OPTIONS">
+			
+			<field default="0"
+				class="btn-group"
+				description="PLG_FORM_ACYMAILING_IP_RECORD_DESC" label="PLG_FORM_ACYMAILING_IP_RECORD_LABEL" name="acymailing_ip_record" repeat="true" type="radio">
+					<option value="0">JNO</option>
+					<option value="1">JYES</option>	
+			</field>
+			
+		</fieldset>
 	</fields>
 </form>

@@ -190,7 +190,7 @@ class PlgFabrik_FormAcymailing extends PlgFabrik_Form
 		
 		// Optional record of the IP address
 		$ip = '';
-		if($params->get('consent_ip_record', '0') === '1')
+		if($params->get('acymailing_ip_record', '0') === '1')
 		{
 			$ip = $_SERVER['REMOTE_ADDR'];
 		   
