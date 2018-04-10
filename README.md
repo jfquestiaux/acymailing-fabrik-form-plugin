@@ -11,7 +11,7 @@ Several options are allowed:
 * You can customize the label next to the checkbox
 * You can include the checkbos into its own fieldset, for accessibility compliance.
 
-The plugin will record the consent of the subscriber in a table in the database (#__fabrik_privacy). This records includes:
+The plugin will record the consent of the subscriber in a table in the database (#__fabrik_privacy). This record includes:
 * The date and time of the subscription
 * The list, form and row ID
 * The consent message (label of the checkbox)
