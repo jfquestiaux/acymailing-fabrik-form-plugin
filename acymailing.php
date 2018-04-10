@@ -162,10 +162,62 @@ class PlgFabrik_FormAcymailing extends PlgFabrik_Form
 			
 			$lists = explode(',', $params->get('acymailing_listid'));
 			
-			$acymailingUserId  = $this->acymailingSubscribe($myUser, $lists, $formModel, $subscribe);
-			$acymailingListIds = $params->get('acymailing_listid');
-			$acymailingMessage = $params->get('acymailing_signuplabel');				
+			$acymailingUserId  = $this->acymailingSubscribe($myUser, $lists, $formModel);
+			$this->savePrivacy($data, $acymailingUserId);
 		}
+	}
+	
+	/**
+	 * Insert record in privacy table
+	 *
+	 * @param	array	$data submitted data
+	 * @param	int		$status status of consent : 0 = new, 1 = update, 2 = remove
+	 *
+	 * @return	bool
+	 */
+	protected function savePrivacy($data, $subid)
+	{
+		$db 	   = FabrikWorker::getDbo();
+		$params    = $this->getParams();
+		$formModel = $this->getModel();
+		
+		$now 	   = new JDate('now');
+		$listId	   = $data['listid'];
+		$formId	   = $data['formid'];
+		$rowId	   = $data['rowid'];
+		
+		$consentMessage = $params->get('acymailing_signuplabel');
+		
+		// Optional record of the IP address
+		$ip = '';
+		if($params->get('consent_ip_record', '0') === '1')
+		{
+			$ip = $_SERVER['REMOTE_ADDR'];
+		   
+		}
+		
+		$query 	 = $db->getQuery( true );
+		$columns = array('id', 'date_time', 'list_id', 'form_id', 'row_id', 'user_id', 'consent_message', 'update_record','ip', 'newsletter_engine', 'sublist_id', 'subid');
+		$values  = array('NULL',
+						 $db->quote($now->format('Y-m-d H:i:s')),
+						 $db->quote($listId),
+						 $db->quote($formId),
+						 $db->quote($rowId),
+						 'NULL',
+						 $db->quote($consentMessage),
+						 0,
+						 $db->quote($ip),
+						 'Acymailing',
+						 $db->quote(json_encode($params->get('acymailing_listid'))),
+						 $subid
+						 );
+		$query->insert($db->quoteName('#__fabrik_privacy'))
+			  ->columns($db->quoteName($columns))
+			  ->values(implode(',', $values));
+		$db->setQuery($query);
+		$db->execute();
+		
+		return;
 	}
 	
 	/**
@@ -192,7 +244,7 @@ class PlgFabrik_FormAcymailing extends PlgFabrik_Form
 	 * @return	bool
 	 */
 	
-	protected function acymailingSubscribe($user, $lists, $formModel, $subscribe)
+	protected function acymailingSubscribe($user, $lists, $formModel)
 	{
 		if($this->checkAcymailing())
 		{
@@ -215,15 +267,7 @@ class PlgFabrik_FormAcymailing extends PlgFabrik_Form
 				foreach($lists as $listId)
 				{
 					$newList = array();
-					
-					if (!$formModel->isNewRecord() && $confirm && !$subscribe) // When editing a record and un-checking the subscription checkbox; the user is unsubscribed to the list(s).
-					{
-						$newList['status'] = 0;
-					}
-					else
-					{
-						$newList['status'] = 1;
-					}
+					$newList['status'] = 1;
 					
 					$newSubscription[$listId] = $newList;
 				}
