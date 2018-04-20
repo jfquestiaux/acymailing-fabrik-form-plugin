@@ -10,6 +10,13 @@
 	<version>3.8.1</version>
 	<description>PLG_FORM_ACYMAILING_DESCRIPTION</description>
 
+	<install>
+		<sql>
+			<file charset="utf8" driver="mysql">sql/install.mysql.uft8.sql</file>
+			<file charset="utf8" driver="mysqli">sql/install.mysql.uft8.sql</file>
+		</sql>
+	</install>
+	
 	<files>
 		<filename plugin="acymailing">acymailing.php</filename>
 		<folder>forms</folder>
